@@ -11,11 +11,9 @@ import glob
 
 from sys import platform, stdout
 
+# force overrides
 packages = [
-    'bvestl',
-    'doctest',
-    'eastl',
-    'fmt',
+    'wren[cli,meta,random]',
 ]
 
 if platform == "linux" or platform == "linux2":
@@ -48,7 +46,7 @@ def copy_ports(source_dir, vcpkg_dir):
 
 
 def install_package(name, vcpkg_dir):
-    if subprocess.run(["vcpkg", "install", f"{name}:{target}"]).returncode != 0:
+    if subprocess.run(["vcpkg", "install", f"{name}:{target}", "--recurse"]).returncode != 0:
         for file in glob.glob(os.path.join(vcpkg_dir, f"buildtrees/{name}/*.log")):
             print(f"Contents of file {file}")
             with open(file) as f:
@@ -72,7 +70,7 @@ def main():
     subprocess.run(['vcpkg', 'update'])
     subprocess.run(['vcpkg', 'upgrade', '--no-dry-run'])
 
-    for package in available_ports(parsed.source_dir, parsed.vcpkg_dir):
+    for package in available_ports(parsed.source_dir, parsed.vcpkg_dir) + packages:
         install_package(package, parsed.vcpkg_dir)
 
 
