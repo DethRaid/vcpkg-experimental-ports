@@ -61,9 +61,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-dir", type=str, default=os.getcwd())
     parser.add_argument("--vcpkg-dir", type=str, required=True)
+    parser.add_argument("--no-install", action='store_true', default=False)
     parsed = parser.parse_args()
 
     copy_ports(parsed.source_dir, parsed.vcpkg_dir)
+
+    if(parsed.no_install == True):
+        return
 
     subprocess.run(['vcpkg', 'update'])
     subprocess.run(['vcpkg', 'upgrade', '--no-dry-run'])
