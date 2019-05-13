@@ -39,10 +39,17 @@ vcpkg_install_cmake()
 
 vcpkg_fixup_cmake_targets()
 
+vcpkg_copy_pdbs()
+
 # exec
 if(FEATURE_CLI)
-	file(COPY ${CURRENT_PACKAGES_DIR}/bin/wren-cli DESTINATION ${CURRENT_PACKAGES_DIR}/tools/)
-	file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin)
+    if(TARGET_TRIPLET MATCHES "^.*(uwp|windows).*$")
+	   file(COPY ${CURRENT_PACKAGES_DIR}/bin/wren-cli.exe DESTINATION ${CURRENT_PACKAGES_DIR}/tools/)
+       file(REMOVE ${CURRENT_PACKAGES_DIR}/bin/wren-cli.exe)
+    else()
+       file(COPY ${CURRENT_PACKAGES_DIR}/bin/wren-cli DESTINATION ${CURRENT_PACKAGES_DIR}/tools/)
+       file(REMOVE ${CURRENT_PACKAGES_DIR}/bin/wren-cli)
+    endif()
 endif()
 
 # debug includes
