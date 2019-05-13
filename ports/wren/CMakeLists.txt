@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 project(wren LANGUAGES C)
 
-# Allow shared libraries on windows
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS True)
-
 # Options to enable/disable features
 option(WREN_ENABLE_CLI "Enable building CLI tool" On)
 option(WREN_ENABLE_META "Enable the Meta class in wren, allowing for source code inspection" On)
@@ -54,6 +51,7 @@ if(WREN_ENABLE_META OR WREN_ENABLE_RANDOM)
 	target_include_directories(wren PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/optional>)
 	target_include_directories(wren PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/vm>)
 endif()
+set_target_properties(wren PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS True)
 
 install(
     TARGETS wren EXPORT wren-config
