@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 project(wren LANGUAGES C)
 
 # Allow shared libraries on windows
-set(CMAKE_EXPORT_ALL_SYMBOLS True)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS True)
 
 # Options to enable/disable features
 option(WREN_ENABLE_CLI "Enable building CLI tool" On)
