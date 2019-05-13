@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 project(wren LANGUAGES C)
 
 # Options to enable/disable features
-option(WREN_ENABLE_CLI "Enable building CLI tool" On)
+option(WREN_ENABLE_CLI "Enable building CLI tool" Off)
 option(WREN_ENABLE_META "Enable the Meta class in wren, allowing for source code inspection" On)
 option(WREN_ENABLE_RANDOM "Enable the Random class in wren, allowing for generation of random numbers" On)
 
