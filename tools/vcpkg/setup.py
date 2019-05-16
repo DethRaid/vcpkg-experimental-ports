@@ -14,6 +14,7 @@ from sys import platform, stdout
 # force overrides
 packages = [
     'wren[cli,meta,random]',
+    'bvestl'
 ]
 
 if platform == "linux" or platform == "linux2":
